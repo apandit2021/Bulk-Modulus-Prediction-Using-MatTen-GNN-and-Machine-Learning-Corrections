@@ -75,3 +75,114 @@ gnn_dataset/
 │   ├── POSCAR
 │   └── target.json
 ...
+
+
+Naming Convention: Each subdirectory is named as {ElementSymbol}_{Pressure}GPa (e.g., Mo_0.0GPa for molybdenum at 0 GPa).
+
+File Contents:
+
+POSCAR: VASP format crystal structure.
+
+Click to expand POSCAR example
+target.json: DFT-computed properties and physical descriptors.
+
+Click to expand target.json example
+Methodology
+1. MatTen GNN Elastic Tensor Prediction
+MatTen is utilized to predict the full elasticity tensor from the crystal structure.
+
+Feature Construction: Atomic positions are encoded as displacement vectors, and atomic species are represented as one-hot vectors.
+
+Network Architecture: The model employs multiple equivariant GNN layers to capture spatial symmetries and interactions. Radial basis functions and spherical harmonics ensure geometric expressiveness, while interaction blocks update atomic features through tensor operations and normalization.
+
+Output: The network directly outputs a full 6x6 Voigt matrix elasticity tensor, designed to inherently respect symmetry constraints. This ensures that predictions are structure-aware and physically plausible, even for systems not explicitly present in the training set.
+
+2. Bulk Modulus Calculation
+The bulk modulus is derived from the predicted elasticity tensor.
+
+Mathematical Expression: The Voigt average is used to convert the predicted elastic tensor into a scalar bulk modulus (K_
+textVoigt):
+
+$$$$$$K\_\\text{Voigt} = \\frac{C\_{11} + C\_{22} + C\_{33} + 2(C\_{12} + C\_{13} + C\_{23})}{9}$$
+$$$$
+
+Interpretation: The Voigt average is a standard method for estimating isotropic moduli from full tensors, particularly suitable for polycrystalline or randomly oriented systems.
+
+3. Regression-Based Correction Models
+Following the MatTen prediction, several supervised machine learning regressors are trained to correct the predicted bulk moduli against the DFT reference data.
+
+Regression Models Evaluated:
+
+Linear Regression: For capturing global linear relationships.
+
+Polynomial Regression: To capture systematic nonlinear deviations (tested with degrees 2–4).
+
+Isotonic Regression: Ideal for monotonic but potentially nonlinear relationships.
+
+k-Nearest Neighbors: To capture local data structures.
+
+Random Forest Regression: For modeling complex, nonlinear dependencies and reducing overfitting.
+
+Gaussian Process Regression: Provides both predictions and uncertainty quantification.
+
+Exponential Regression: To investigate potential log-scale or exponential relationships.
+
+Features: The input features for these correction models include:
+
+The MatTen-predicted bulk modulus.
+
+Pressure.
+
+Tensor norm (characterizing the overall elastic response).
+
+Model Selection and Validation: Hyperparameters are optimized using cross-validation and grid search. Models are rigorously evaluated based on R 
+2
+  (coefficient of determination) and MAE (Mean Absolute Error).
+
+Results and Analysis
+Prediction Accuracy
+Raw MatTen Prediction: The initial MatTen predictions show a strong correlation (R 
+2
+ 
+approx0.9) with DFT reference data. However, systematic over- or under-predictions are observed, indicating a domain gap between the Materials Project pre-training data and the specific pressure-dependent elemental systems studied here.
+
+ML-Corrected Predictions: The best-performing correction models (typically Random Forest or Polynomial Regression) significantly improve accuracy, achieving R 
+2
+ 0.98 and MAE as low as 1–3 GPa. Post-correction, residuals (DFT - prediction) are minimized and show no significant pressure-dependent drift. Performance metrics for all models are compiled in results_ml_ecs/bulkmod_correction_metrics.csv.
+
+Extrapolation, Robustness, and Trends
+Interpolation: Within the observed DFT-sampled pressure ranges, the corrected models closely match DFT data, exhibiting small residuals and no evidence of overfitting.
+
+Extrapolation: The developed pipeline demonstrates the ability to extrapolate trends beyond the available DFT data. MatTen's inherent physical plausibility ensures reasonable physical behavior (e.g., monotonic increase or decrease in bulk modulus under compression) even in extrapolated regions.
+
+Caution for Extrapolation: It is crucial to validate extrapolated predictions with new DFT data or expert physical reasoning, as ML corrections may become less reliable far outside the training domain.
+
+Systematic Trends: The workflow successfully captures distinct pressure dependencies and structural characteristics across different elemental systems.
+
+Physical Interpretation
+Error Analysis: The primary source of residual error stems from the domain mismatch between MatTen's pre-training data and the specific pressure/structure combinations in the current dataset. The effectiveness of regression corrections indicates that these errors are largely systematic rather than random.
+
+Scientific Value: This approach enables rapid screening of elastic properties for materials discovery and design under varying environmental conditions. It supports experimental prioritization and hypothesis generation by providing fast, accurate, and physically interpretable predictions.
+
+Limitations
+The current dataset is limited to elemental solids; extending the methodology to multicomponent systems will require further validation and potentially retraining.
+
+The reliability of ML corrections is inherently tied to the quality and coverage of the underlying DFT reference data across the relevant phase space.
+
+The physical interpretability of ML corrections may be limited, especially for highly nonlinear relationships or outlier cases.
+
+Usage Instructions
+Dependencies
+(Add your dependency list and installation instructions here)
+
+Future Directions
+(Add your future work ideas here)
+
+Contact
+(Add your contact information here)
+
+References
+(Add your references here)
+
+Acknowledgments
+(Add your acknowledgments here)
