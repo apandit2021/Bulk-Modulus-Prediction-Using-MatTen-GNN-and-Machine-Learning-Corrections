@@ -98,9 +98,9 @@ gnn_dataset/
 
 The bulk modulus is derived from the predicted elasticity tensor.
 
-* **Mathematical Expression:** The Voigt average is used to convert the predicted elastic tensor into a scalar bulk modulus ($K_{\text{Voigt}}$):
+* **Mathematical Expression:** The bulk modulus ($K$) here is calculated as:
 
-    $$K_{\text{Voigt}} = \frac{C_{11} + C_{22} + C_{33} + 2(C_{12} + C_{13} + C_{23})}{9}$$
+    $$K = \frac{C_{11} 2(C_{12} )}{3}$$
 
 * **Interpretation:** The Voigt average is a standard method for estimating isotropic moduli from full tensors, particularly suitable for polycrystalline or randomly oriented systems.
 
