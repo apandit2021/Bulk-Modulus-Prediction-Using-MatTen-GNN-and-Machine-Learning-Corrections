@@ -128,49 +128,47 @@ Following the **MatTen** prediction, several supervised machine learning regress
 
 ### Prediction Accuracy
 
-Our initial **MatTen** predictions demonstrate a strong correlation ($R^2 \approx 0.9$) with DFT reference data. However, we observed systematic over- or under-predictions, indicating a domain gap between the Materials Project pre-training data and the specific pressure-dependent elemental systems studied here.
+Our initial **MatTen** predictions showed a strong correlation ($R^2 \approx 0.9$) with DFT reference data. However, we observed systematic over- or under-predictions, indicating a domain gap between the Materials Project pre-training data and our specific pressure-dependent elemental systems.
 
 **Figure 1: Initial MatTen Prediction vs. DFT Bulk Modulus**
-![Initial MatTen Prediction](Bulk-Modulus-Prediction-Using-MatTen-GNN-and-Machine-Learning-Corrections/results_ml_ecs/figures/bulkmod_matten_only_projection_per_system.png)
-*This scatter plot illustrates the raw MatTen-predicted bulk modulus values against the DFT-computed values, highlighting the initial correlation and observed systematic deviations from the ideal $y=x$ line.*
+![Initial MatTen Prediction](results_ml_ecs/figures/bulkmod_matten_only_projection_per_system.png)
+*This scatter plot compares raw MatTen-predicted bulk modulus values against DFT-computed values, illustrating the initial correlation and systematic deviations from the ideal $y=x$ line.*
 
-The application of machine learning correction models, particularly **Random Forest** or **Polynomial Regression**, significantly enhanced accuracy. We achieved an impressive $R^2 \ge 0.98$ and a Mean Absolute Error (MAE) as low as 1–3 GPa. This calibration effectively addressed the identified domain gap.
+The application of machine learning correction models, particularly **Random Forest** or **Polynomial Regression**, significantly enhanced prediction accuracy. We achieved an impressive $R^2 \ge 0.98$ and a Mean Absolute Error (MAE) as low as 1–3 GPa, effectively addressing the identified domain gap.
 
 **Figure 2: ML-Corrected Prediction vs. DFT Bulk Modulus**
-![ML-Corrected Prediction vs. DFT Bulk Modulus](Bulk-Modulus-Prediction-Using-MatTen-GNN-and-Machine-Learning-Corrections/results_ml_ecs/figures/bulkmod_matten_ml_projection_per_system.png)
-*As seen here, the corrected predictions align much more closely with the DFT data, demonstrating a substantial reduction in prediction error.*
+![ML-Corrected Prediction vs. DFT Bulk Modulus](results_ml_ecs/figures/bulkmod_matten_ml_projection_per_system.png)
+*This figure demonstrates the enhanced accuracy post-correction, showing data points significantly tighter around the $y=x$ line and a substantial reduction in prediction error.*
 
-Post-correction, residuals (DFT - prediction) are minimized and exhibit no significant pressure-dependent drift, confirming the effectiveness of the corrections in removing systematic biases.
+Post-correction, residuals (DFT - prediction) were minimized and exhibited no significant pressure-dependent drift, confirming the effectiveness of the corrections in removing systematic biases.
 
 **Figure 3: Residual Comparison: Raw MatTen vs. Best Corrected**
-![Residual Comparison MatTen Raw vs Best Corrected](Bulk-Modulus-Prediction-Using-MatTen-GNN-and-Machine-Learning-Corrections/results_ml_ecs/figures/residual_comparison_matten_raw_vs_best_corrected.png)
-*This figure clearly contrasts the residual distribution before and after correction, visually confirming the successful minimization of errors.*
+![Residual Comparison MatTen Raw vs Best Corrected](results_ml_ecs/figures/residual_comparison_matten_raw_vs_best_corrected.png)
+*This plot clearly contrasts the residual distribution before and after correction, visually confirming the successful minimization of errors.*
 
-Performance metrics for all evaluated models are compiled in `results_ml_ecs/bulkmod_correction_metrics.csv`.
+Performance metrics for all evaluated models are detailed in `results_ml_ecs/bulkmod_correction_metrics.csv`.
 
 **Figure 4: $R^2$ Comparison of Correction Models**
-![R2 Bulk Modulus Correction Model Comparison](Bulk-Modulus-Prediction-Using-MatTen-GNN-and-Machine-Learning-Corrections/results_ml_ecs/figures/R2_bulkmod_correction_model_comparison.png)
-*This chart provides a direct comparison of the $R^2$ values across different correction models, showcasing which models yielded the best performance.*
+![R2 Bulk Modulus Correction Model Comparison](results_ml_ecs/figures/R2_bulkmod_correction_model_comparison.png)
+*This chart provides a direct comparison of the $R^2$ values across different correction models, showcasing their respective performance.*
 
 ### Extrapolation, Robustness, and Trends
 
-Within the observed DFT-sampled pressure ranges, the corrected models closely match DFT data, exhibiting small residuals and no evidence of overfitting. This confirms our pipeline's robust **interpolation** capabilities.
+Within the observed DFT-sampled pressure ranges, the corrected models closely matched DFT data, exhibiting small residuals and no evidence of overfitting. This confirms our pipeline's robust **interpolation** capabilities.
 
 Furthermore, the developed pipeline demonstrates the ability to **extrapolate** trends beyond the available DFT data. **MatTen's** inherent physical plausibility ensures reasonable physical behavior (e.g., monotonic increase or decrease in bulk modulus under compression) even in extrapolated regions.
 
 **Figure 5: Pressure-Dependent Bulk Modulus for Selected Elements (Interpolation & Extrapolation)**
-![Bulk Modulus Interpolation Per System](Bulk-Modulus-Prediction-Using-MatTen-GNN-and-Machine-Learning-Corrections/results_ml_ecs/figures/bulkmod_interpolation_per_system.png)
+![Bulk Modulus Interpolation Per System](results_ml_ecs/figures/bulkmod_interpolation_per_system.png)
 *This plot effectively illustrates the model's ability to accurately track DFT data within the sampled range and extend these trends into unobserved pressure regimes, maintaining physical consistency.*
 
 While promising, it's crucial to validate extrapolated predictions with new DFT data or expert physical reasoning, as ML corrections may become less reliable far outside the training domain. Overall, the workflow successfully captures distinct pressure dependencies and structural characteristics across various elemental systems.
 
 ### Physical Interpretation
 
-The primary source of residual error stems from the domain mismatch between **MatTen's** pre-training data and the specific pressure/structure combinations in the current dataset. The effectiveness of regression corrections indicates that these errors are largely systematic rather than random.
+The primary source of residual error stemmed from the domain mismatch between **MatTen's** pre-training data and the specific pressure/structure combinations in the current dataset. The effectiveness of regression corrections indicates these errors were largely systematic rather than random.
 
 This approach enables rapid screening of elastic properties for materials discovery and design under varying environmental conditions. It supports experimental prioritization and hypothesis generation by providing fast, accurate, and physically interpretable predictions.
-
----
 
 ## Limitations
 
