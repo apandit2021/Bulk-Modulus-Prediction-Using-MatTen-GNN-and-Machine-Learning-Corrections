@@ -42,18 +42,99 @@ Recent advances in machine learning, particularly graph neural networks with phy
 - Evaluating both interpolation (within DFT-sampled pressure ranges) and extrapolation (beyond those ranges).
 
 ---
-
 ## Dataset Description
 
-- **Systems**: Elemental crystals (examples: Fe, Cr, Mn) across several pressures.
-- **Each data entry includes**:
-  - `POSCAR` (crystal structure, VASP format)
-  - `target.json` (DFT-computed properties, notably `bulk_modulus` in GPa)
-- **Pressure Range**: Typically 0–200 GPa, sampled at discrete intervals per system.
-- **MatTen Model Pre-training**:  
-  - Trained on 10,276 elasticity tensors from the Materials Project, split 8:1:1 for training, validation, and testing.
+This project uses a dataset of elemental crystal structures evaluated at various pressures, suitable for benchmarking and developing machine learning models for elastic property prediction.
 
-The dataset thus combines realistic quantum-calculated properties with high-quality crystal representations, serving as a robust testbed for ML model benchmarking and property prediction.
+- **Systems:**  
+  A range of elemental crystals (e.g., Fe, Cr, Mn, Mo, Nb, Rh, Ru, Sr, Tc, Y, Zr, Rb) evaluated under hydrostatic pressure.
+- **Pressure Range:**  
+  Typically from 0 to 200 GPa, sampled at discrete intervals for each system.
+- **Properties per Entry:**  
+  - **`POSCAR`**: Atomic structure in standard VASP format.
+  - **`target.json`**: DFT-computed physical properties, notably:
+    - `"bulk_modulus"` (in GPa, target property for ML)
+    - `"elastic_tensor"` (6x6 Voigt matrix)
+    - Additional fields: pressure, free energy, ELF descriptors, lattice constants, etc.
+- **MatTen Pre-training:**  
+  The MatTen GNN model is pre-trained on 10,276 elasticity tensors from the Materials Project, with an 8:1:1 train/validation/test split, ensuring robust generalization.
+
+The dataset thus integrates quantum-computed properties with standardized structure files, forming a robust basis for data-driven elastic property prediction and model evaluation.
+
+---
+
+### Data Organization and Format
+
+The dataset should be organized in the following directory structure:
+
+gnn_dataset/
+├── Mo_0.0GPa/
+│ ├── POSCAR
+│ └── target.json
+├── Mo_10.0GPa/
+│ ├── POSCAR
+│ └── target.json
+├── Nb_0.0GPa/
+│ ├── POSCAR
+│ └── target.json
+...
+
+- **Naming Convention:**  
+  Each subdirectory is named as `{ElementSymbol}_{Pressure}GPa` (e.g., `Mo_0.0GPa` for molybdenum at 0 GPa).
+
+- **File Contents:**  
+  - **POSCAR:** VASP format crystal structure.
+  - **target.json:** DFT-computed properties and physical descriptors.
+
+#### Example: `gnn_dataset/Mo_0.0GPa/`
+
+**POSCAR**
+<details>
+<summary>Click to expand</summary>
+
+```text
+BCC2                                    
+   1.00000000000000     
+     3.1592668255831322   -0.0000000000000000    0.0000000000000000
+     0.0000000000000000    3.1592668255831322    0.0000000000000000
+    -0.0000000000000000   -0.0000000000000000    3.1592668255831322
+   Mo
+     2
+Direct
+  0.0000000000000000  0.0000000000000000  0.0000000000000000
+  0.5000000000000000  0.5000000000000000  0.5000000000000000
+
+  0.00000000E+00  0.00000000E+00  0.00000000E+00
+  0.00000000E+00  0.00000000E+00  0.00000000E+00
+
+</details>
+target.json
+
+<details> <summary>Click to expand</summary>
+{
+  "system": "Mo",
+  "pressure": 0.0,
+  "atomic_numbers": [42, 42],
+  "avg_elf": 0.3212510371425438,
+  "octa_elf": 0.3609,
+  "tetra_elf": 0.48302,
+  "lattice_constant": 3.159266825583132,
+  "lattice_volume": 31.53253753615866,
+  "free_energy": -21.8470852,
+  "bulk_modulus": 262.63581666666664,
+  "elastic_tensor": [
+    [470.09325, 158.9071, 158.9071, -0.0, -0.0, 0.0],
+    [158.9071, 470.09325, 158.9071, -0.0, 0.0, 0.0],
+    [158.9071, 158.9071, 470.09325, -0.0, -0.0, -0.0],
+    [-0.0, -0.0, -0.0, 103.80556, 0.0, 0.0],
+    [-0.0, 0.0, -0.0, 0.0, 103.80556, 0.0],
+    [0.0, 0.0, -0.0, 0.0, 0.0, 103.80556]
+  ],
+  "avg_electronegativity": 2.16,
+  "avg_valence_electrons": 12.0,
+  "avg_rwigs_angstrom": 1.455
+}
+</details>
 
 ---
 
