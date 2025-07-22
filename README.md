@@ -98,7 +98,7 @@ gnn_dataset/
 
 The bulk modulus is derived from the predicted elasticity tensor.
 
-* **Mathematical Expression:** The bulk modulus ($K$) here is calculated as:
+* **Mathematical Expression:** The bulk modulus ($K$) here (for cubic system) is calculated as:
 
     $$K = \frac{C_{11} + 2(C_{12} )}{3}$$
 
@@ -128,7 +128,7 @@ Following the **MatTen** prediction, several supervised machine learning regress
 
 ### Prediction Accuracy
 
-* **Raw MatTen Prediction:** The initial **MatTen** predictions show a strong correlation ($R^2 \approx 0.9$) with DFT reference data. However, systematic over- or under-predictions are observed, indicating a domain gap between the Materials Project pre-training data and the specific pressure-dependent elemental systems studied here.
+* **Raw MatTen Prediction:** ![Initial MatTen Prediction] (results_ml_ecs/figures/bulkmod_matten_only_projection_per_system.png) The initial **MatTen** predictions show a strong correlation ($R^2 \approx 0.9$) with DFT reference data. However, systematic over- or under-predictions are observed, indicating a domain gap between the Materials Project pre-training data and the specific pressure-dependent elemental systems studied here.
 * **ML-Corrected Predictions:** The best-performing correction models (typically **Random Forest** or **Polynomial Regression**) significantly improve accuracy, achieving $R^2 \ge 0.98$ and MAE as low as 1–3 GPa. Post-correction, residuals (DFT - prediction) are minimized and show no significant pressure-dependent drift. Performance metrics for all models are compiled in `results_ml_ecs/bulkmod_correction_metrics.csv`.
 
 ### Extrapolation, Robustness, and Trends
