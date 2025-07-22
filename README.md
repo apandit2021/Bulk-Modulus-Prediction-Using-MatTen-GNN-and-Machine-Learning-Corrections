@@ -63,36 +63,59 @@ The dataset thus integrates quantum-computed properties with standardized struct
 
 ---
 
+## Dataset Description
+
+This project utilizes a dataset of elemental crystal structures evaluated at multiple pressures, designed for benchmarking and training machine learning models to predict elastic properties such as the bulk modulus.
+
+- **Systems:**  
+  Elemental crystals (e.g., Fe, Cr, Mn, Mo, Nb, Rh, Ru, Sr, Tc, Y, Zr, Rb), each evaluated under hydrostatic pressure.
+- **Pressure Range:**  
+  Typically from 0 to 200 GPa, sampled at discrete intervals for each system.
+- **Properties per Entry:**  
+  - **`POSCAR`**: Atomic structure in standard VASP format.
+  - **`target.json`**: DFT-computed physical properties, including:
+    - `"bulk_modulus"` (in GPa, target property for ML)
+    - `"elastic_tensor"` (6x6 Voigt matrix)
+    - Additional fields: pressure, free energy, ELF descriptors, lattice constants, etc.
+- **MatTen Model Pre-training:**  
+  The MatTen GNN model is pre-trained on 10,276 elasticity tensors from the Materials Project, using an 8:1:1 split for training, validation, and testing, ensuring robust generalization.
+
+The dataset thus combines quantum-computed properties with standardized structure files, forming a robust basis for data-driven elastic property prediction and evaluation.
+
+---
+
 ### Data Organization and Format
 
 The dataset should be organized in the following directory structure:
 
+```text
 gnn_dataset/
 ├── Mo_0.0GPa/
-│ ├── POSCAR
-│ └── target.json
+│   ├── POSCAR
+│   └── target.json
 ├── Mo_10.0GPa/
-│ ├── POSCAR
-│ └── target.json
+│   ├── POSCAR
+│   └── target.json
 ├── Nb_0.0GPa/
-│ ├── POSCAR
-│ └── target.json
+│   ├── POSCAR
+│   └── target.json
 ...
+Naming Convention:
+Each subdirectory is named as {ElementSymbol}_{Pressure}GPa (e.g., Mo_0.0GPa for molybdenum at 0 GPa).
 
-- **Naming Convention:**  
-  Each subdirectory is named as `{ElementSymbol}_{Pressure}GPa` (e.g., `Mo_0.0GPa` for molybdenum at 0 GPa).
+File Contents:
 
-- **File Contents:**  
-  - **POSCAR:** VASP format crystal structure.
-  - **target.json:** DFT-computed properties and physical descriptors.
+POSCAR: VASP format crystal structure.
 
-#### Example: `gnn_dataset/Mo_0.0GPa/`
+target.json: DFT-computed properties and physical descriptors.
 
-**POSCAR**
-<details>
-<summary>Click to expand</summary>
+Example: gnn_dataset/Mo_0.0GPa/
+POSCAR
 
-```text
+<details> <summary>Click to expand</summary>
+text
+Copy
+Edit
 BCC2                                    
    1.00000000000000     
      3.1592668255831322   -0.0000000000000000    0.0000000000000000
@@ -106,11 +129,13 @@ Direct
 
   0.00000000E+00  0.00000000E+00  0.00000000E+00
   0.00000000E+00  0.00000000E+00  0.00000000E+00
-
 </details>
 target.json
 
 <details> <summary>Click to expand</summary>
+json
+Copy
+Edit
 {
   "system": "Mo",
   "pressure": 0.0,
