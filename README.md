@@ -153,23 +153,22 @@ Following the **MatTen** prediction, several supervised machine learning regress
 
 ---
 
-## Usage Instructions
 
-#Dependencies
-*numpy, pandas, matplotlib
-*scikit-learn
-*pymatgen
-*matten 
+## Dependencies 
+* numpy, pandas, matplotlib
+* scikit-learn
+* pymatgen
+* matten 
 
 ---
 
 ## Future Directions
 
 * Multi-property predictions (e.g., elastic anisotropy, higher-order moduli)
-*Transfer learning to alloys, compounds, or disordered systems
-*Uncertainty quantification for risk-aware materials discovery
-*Active learning and feedback with on-the-fly DFT
-*Scaling up to larger, more diverse datasets
+* Transfer learning to alloys, compounds, or disordered systems
+* Uncertainty quantification for risk-aware materials discovery
+* Active learning and feedback with on-the-fly DFT
+* Scaling up to larger, more diverse datasets
 
 
 ---
