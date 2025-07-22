@@ -134,23 +134,26 @@ Our initial **MatTen** predictions showed a strong correlation ($R^2 \approx 0.9
 ![Initial MatTen Prediction](results_ml_ecs/figures/bulkmod_matten_only_projection_per_system.png)
 *This scatter plot compares raw MatTen-predicted bulk modulus values against DFT-computed values, illustrating the initial correlation and systematic deviations from the ideal $y=x$ line.*
 
-The application of machine learning correction models, particularly **Random Forest** or **Polynomial Regression**, significantly enhanced prediction accuracy. We achieved an impressive $R^2 \ge 0.98$ and a Mean Absolute Error (MAE) as low as 1–3 GPa, effectively addressing the identified domain gap.
+**Figure 2: $R^2$ Comparison of Correction Models**
+![R2 Bulk Modulus Correction Model Comparison](results_ml_ecs/figures/R2_bulkmod_correction_model_comparison.png)
+*This chart provides a direct comparison of the $R^2$ values across different correction models, showcasing their respective performance.*
 
-**Figure 2: ML-Corrected Prediction vs. DFT Bulk Modulus**
+Performance metrics for all evaluated models are detailed in `results_ml_ecs/bulkmod_correction_metrics.csv`.
+
+The application of machine learning correction models, particularly **Random Forest** or **Polynomial Regression**, significantly enhanced prediction accuracy. We achieved an impressive $R^2 \ge 0.98$ and a Mean Absolute Error (MAE) as low as 1–3 GPa, effectively addressing the identified domain gap. Accordingly, we select the ML correction model showing best performance (here **Random Forest**) for further predictions.
+
+**Figure 3: ML-Corrected Prediction vs. DFT Bulk Modulus**
 ![ML-Corrected Prediction vs. DFT Bulk Modulus](results_ml_ecs/figures/bulkmod_matten_ml_projection_per_system.png)
 *This figure demonstrates the enhanced accuracy post-correction, showing data points significantly tighter around the $y=x$ line and a substantial reduction in prediction error.*
 
 Post-correction, residuals (DFT - prediction) were minimized and exhibited no significant pressure-dependent drift, confirming the effectiveness of the corrections in removing systematic biases.
 
-**Figure 3: Residual Comparison: Raw MatTen vs. Best Corrected**
+**Figure 4: Residual Comparison: Raw MatTen vs. Best Corrected**
 ![Residual Comparison MatTen Raw vs Best Corrected](results_ml_ecs/figures/residual_comparison_matten_raw_vs_best_corrected.png)
 *This plot clearly contrasts the residual distribution before and after correction, visually confirming the successful minimization of errors.*
 
 Performance metrics for all evaluated models are detailed in `results_ml_ecs/bulkmod_correction_metrics.csv`.
 
-**Figure 4: $R^2$ Comparison of Correction Models**
-![R2 Bulk Modulus Correction Model Comparison](results_ml_ecs/figures/R2_bulkmod_correction_model_comparison.png)
-*This chart provides a direct comparison of the $R^2$ values across different correction models, showcasing their respective performance.*
 
 ### Extrapolation, Robustness, and Trends
 
