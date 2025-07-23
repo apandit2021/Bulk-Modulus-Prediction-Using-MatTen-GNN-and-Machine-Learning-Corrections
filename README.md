@@ -102,7 +102,7 @@ The bulk modulus is derived from the predicted elasticity tensor.
 
     $$K = \frac{C_{11} + 2C_{12} }{3}$$
 
-* **Interpretation:** The Voigt average is a standard method for estimating isotropic moduli from full tensors, particularly suitable for polycrystalline or randomly oriented systems.
+* **Interpretation:** The bulk modulus is a standard method for estimating the hardness of a system subjected to hydrostatic stress.
 
 ### 3. Regression-Based Correction Models
 
