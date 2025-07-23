@@ -219,8 +219,9 @@ abhi99lucky@gmail.com
 ---
 
 ## References
-
-https://github.com/wengroup/matten
+* Graph Neural Network: https://www.nature.com/articles/s43586-024-00294-7
+* Scikit-learn: https://scikit-learn.org/stable/
+* MatTen: https://github.com/wengroup/matten
 
 ---
 
