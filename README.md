@@ -20,7 +20,7 @@ This repository provides a reproducible workflow for predicting the pressure-dep
     * [Extrapolation, Robustness, and Trends](#extrapolation-robustness-and-trends)
     * [Physical Interpretation](#physical-interpretation)
 * [Limitations](#limitations)
-* [Usage Instructions](#usage-instructions)
+* [Dependencies](#Dependencies)
 * [Future Directions](#future-directions)
 * [Contact](#contact)
 * [References](#references)
@@ -186,7 +186,14 @@ This approach enables rapid screening of elastic properties for materials discov
 * numpy, pandas, matplotlib
 * scikit-learn
 * pymatgen
-* matten 
+* matten
+
+## To Run the Code
+```bash
+    python3 matten_bulk_modulus_prediction.py
+    ```
+    This script will perform the ML analysis, generate plots, and save results in the `results_ml_ecs/` directory.
+
 
 ---
 
@@ -203,6 +210,8 @@ This approach enables rapid screening of elastic properties for materials discov
 
 ## Contact
 Abhiyan Pandit
+https://www.linkedin.com/in/abhiyan-pandit-a8838a138/
+abhi99lucky@gmail.com
 
 
 ---
