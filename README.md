@@ -140,7 +140,7 @@ Our initial **MatTen** predictions showed a strong correlation ($R^2 \approx 0.9
 
 Performance metrics for all evaluated models are detailed in `results_ml_ecs/bulkmod_correction_metrics.csv`.
 
-The application of machine learning correction models, particularly **Random Forest** or **Polynomial Regression**, significantly enhanced prediction accuracy. We achieved an impressive $R^2 \ge 0.98$ and a Mean Absolute Error (MAE) as low as 1–3 GPa, effectively addressing the identified domain gap. Accordingly, we select the ML correction model showing best performance (here **Random Forest**) for further predictions.
+The application of machine learning correction models, particularly **Random Forest (rf)** or **Polynomial Regression**, significantly enhanced prediction accuracy. We achieved an impressive $R^2 \ge 0.98$ and a Mean Absolute Error (MAE) as low as 1–3 GPa, effectively addressing the identified domain gap. Accordingly, we select the ML correction model showing best performance (here **Random Forest**) for further predictions.
 
 **Figure 3: ML-Corrected Prediction vs. DFT Bulk Modulus**
 ![ML-Corrected Prediction vs. DFT Bulk Modulus](results_ml_ecs/figures/bulkmod_matten_ml_projection_per_system.png)
@@ -151,8 +151,6 @@ Post-correction, residuals (DFT - prediction) were minimized and exhibited no si
 **Figure 4: Residual Comparison: Raw MatTen vs. Best Corrected**
 ![Residual Comparison MatTen Raw vs Best Corrected](results_ml_ecs/figures/residual_comparison_matten_raw_vs_best_corrected.png)
 *This plot clearly contrasts the residual distribution before and after correction, visually confirming the successful minimization of errors.*
-
-Performance metrics for all evaluated models are detailed in `results_ml_ecs/bulkmod_correction_metrics.csv`.
 
 
 ### Extrapolation, Robustness, and Trends
