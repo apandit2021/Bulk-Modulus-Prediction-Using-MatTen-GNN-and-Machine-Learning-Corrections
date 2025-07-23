@@ -188,7 +188,7 @@ This approach enables rapid screening of elastic properties for materials discov
 * pymatgen
 * matten
 
-To Run the Code
+Run the code with:
 ``
     python3 matten_bulk_modulus_prediction.py
 ``
