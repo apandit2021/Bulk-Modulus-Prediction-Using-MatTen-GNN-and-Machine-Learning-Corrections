@@ -100,7 +100,7 @@ The bulk modulus is derived from the predicted elasticity tensor.
 
 * **Mathematical Expression:** The bulk modulus ($K$) here (for cubic system) is calculated as:
 
-    $$K = \frac{C_{11} + 2(C_{12} )}{3}$$
+    $$K = \frac{C_{11} + 2C_{12} }{3}$$
 
 * **Interpretation:** The Voigt average is a standard method for estimating isotropic moduli from full tensors, particularly suitable for polycrystalline or randomly oriented systems.
 
