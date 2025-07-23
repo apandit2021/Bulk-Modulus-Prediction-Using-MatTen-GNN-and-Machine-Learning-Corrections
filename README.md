@@ -182,17 +182,18 @@ This approach enables rapid screening of elastic properties for materials discov
 ---
 
 
-## Dependencies 
+## Dependencies and Instruction
 * numpy, pandas, matplotlib
 * scikit-learn
 * pymatgen
 * matten
 
-## To Run the Code
-```bash
+To Run the Code
+``
     python3 matten_bulk_modulus_prediction.py
-    ```
-    This script will perform the ML analysis, generate plots, and save results in the `results_ml_ecs/` directory.
+``
+This script will perform the ML analysis, generate plots, and save results in the `results_ml_ecs/` directory.
+
 
 
 ---
