@@ -143,7 +143,7 @@ Performance metrics for all evaluated models are detailed in `results_ml_ecs/bul
 The application of machine learning correction models, particularly **Random Forest (rf)** or **Polynomial Regression**, significantly enhanced prediction accuracy. We achieved an impressive $R^2 \ge 0.98$ and a Mean Absolute Error (MAE) as low as 1–3 GPa, effectively addressing the identified domain gap. Accordingly, we select the ML correction model showing best performance (here **Random Forest**) for further predictions.
 
 **Figure 3: ML-Corrected Prediction vs. DFT Bulk Modulus**
-![ML-Corrected Prediction vs. DFT Bulk Modulus](results_ml_ecs/figures/bulkmod_matten_ml_projection_per_system.png)
+![ML-Corrected Prediction vs. DFT Bulk Modulus](results_ml_ecs/figures/bulkmod_interpolation_per_system.png)
 *This figure demonstrates the enhanced accuracy post-correction, showing data points significantly tighter around the $y=x$ line and a substantial reduction in prediction error.*
 
 Post-correction, residuals (DFT - prediction) were minimized and exhibited no significant pressure-dependent drift, confirming the effectiveness of the corrections in removing systematic biases.
@@ -160,7 +160,7 @@ Within the observed DFT-sampled pressure ranges, the corrected models closely ma
 Furthermore, the developed pipeline demonstrates the ability to **extrapolate** trends beyond the available DFT data. **MatTen's** inherent physical plausibility ensures reasonable physical behavior (e.g., monotonic increase or decrease in bulk modulus under compression) even in extrapolated regions.
 
 **Figure 5: Pressure-Dependent Bulk Modulus for Selected Elements (Interpolation & Extrapolation)**
-![Bulk Modulus Interpolation Per System](results_ml_ecs/figures/bulkmod_interpolation_per_system.png)
+![Bulk Modulus Interpolation Per System](results_ml_ecs/figures/bulkmod_matten_ml_projection_per_system.png) 
 *This plot effectively illustrates the model's ability to accurately track DFT data within the sampled range and extend these trends into unobserved pressure regimes, maintaining physical consistency.*
 
 While promising, it's crucial to validate extrapolated predictions with new DFT data or expert physical reasoning, as ML corrections may become less reliable far outside the training domain. Overall, the workflow successfully captures distinct pressure dependencies and structural characteristics across various elemental systems.
