@@ -171,14 +171,6 @@ The primary source of residual error stemmed from the domain mismatch between **
 
 This approach enables rapid screening of elastic properties for materials discovery and design under varying environmental conditions. It supports experimental prioritization and hypothesis generation by providing fast, accurate, and physically interpretable predictions.
 
-## Limitations
-
-* The current dataset is limited to elemental solids; extending the methodology to multicomponent systems will require further validation and potentially retraining.
-* The reliability of ML corrections is inherently tied to the quality and coverage of the underlying DFT reference data across the relevant phase space.
-* The physical interpretability of ML corrections may be limited, especially for highly nonlinear relationships or outlier cases.
-
----
-
 
 ## Dependencies and Instruction
 * numpy, pandas, matplotlib
@@ -196,9 +188,20 @@ This script will perform the ML analysis, generate plots, and save results in th
 
 ---
 
+## Limitations
+
+* The current dataset is limited to elemental solids; extending the methodology to multicomponent systems will require further validation and potentially retraining.
+* The reliability of ML corrections is inherently tied to the quality and coverage of the underlying DFT reference data across the relevant phase space.
+* The physical interpretability of ML corrections may be limited, especially for highly nonlinear relationships or outlier cases.
+
+---
+
+
+
+
 ## Future Directions
 
-* Multi-property predictions (e.g., elastic anisotropy, higher-order moduli)
+* Multi-property predictions (e.g., elastic anisotropy, higher-order moduli, ...)
 * Transfer learning to alloys, compounds, or disordered systems
 * Uncertainty quantification for risk-aware materials discovery
 * Active learning and feedback with on-the-fly DFT
